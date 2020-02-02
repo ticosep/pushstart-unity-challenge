@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance = null;                //Static instance of GameManager which allows it to be accessed by any other script.
+    public static GameObject building;
     public static int money = 3000;
 
     //Awake is always called before any Start functions
@@ -43,11 +44,30 @@ public class GameManager : MonoBehaviour
     //Update is called every frame.
     void Update()
     {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        mousePos.z = 0;
+        
+         if (Input.GetMouseButtonDown(0)) {
+          
+         if(building) {
+            Instantiate(building,mousePos,Quaternion.identity); 
+            
+         } else {
+             Debug.Log("Not able to construt");
+         }
+
+         }
+           
 
     }
 
     public void updateMoney(int value) {
         money += value;
+    }
+
+      public static void changeBuilding(GameObject nextBuilding) {
+        building = nextBuilding;
     }
 
 
